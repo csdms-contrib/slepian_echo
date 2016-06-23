@@ -21,9 +21,9 @@ function val=getx(oh,prop)
 % SETX
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/21/2016
+% Last modified by fjsimons-at-alum.mit.edu, 06/23/2016
 
-if verLessThan('matlab','9')
+if verLessThan('matlab','R2014b')
   val=get(oh,prop);
 else
   val=oh.(prop);
