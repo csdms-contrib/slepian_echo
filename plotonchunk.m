@@ -18,7 +18,7 @@ function varargout=plotonchunk(xi,eta)
 % SEE ALSO: PLOTONCUBE, PLM2CUBE (notably, for demos using this)
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/23/2016
+% Last modified by fjsimons-at-alum.mit.edu, 06/26/2016
 
 for in=1:6
   xup=floor(in/2)*pi/2;
@@ -32,6 +32,8 @@ for in=1:6
     else
       % Make a nan-sensical object
       p(in)=matlab.graphics.chart.primitive.Line;
+      % Should be changing that, and ISEMPTYX, ISNANX, to an "undeclared"
+      % graphics object, which we know exists!
     end
   end
   hold on
