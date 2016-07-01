@@ -18,9 +18,9 @@ function setx(oh,prop,val)
 % GETX
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/23/2016
+% Last modified by fjsimons-at-alum.mit.edu, 07/01/2016
 
-if verLessThan('matlab','R2014b')
+if verLessThan('matlab','8.4')
   set(oh,prop,val);
 else
   oh.(prop)=val;
