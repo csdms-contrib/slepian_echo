@@ -35,8 +35,8 @@ function varargout=loristopo2d(wav,spp,N,J,L,precon,iface,colmap,tperc)
 % Set the defaults
 defval('wav','D4')
 defval('spp',1)
-defval('N',8)
-defval('J',N-4)
+defval('N',7);
+defval('J',N-4);
 defval('L',ceil(2^(N+1)))
 defval('precon',[1 1]*0)
 defval('iface',3)
@@ -107,6 +107,7 @@ else
   noticks(gca)
   strunk=sprintf('%s reconstruction (m)',wav);
 end
+% Add the color bar
 [g,gg]=addcb('hor',dax,dax,colmap,range(dax)/4);
 % Note, as in CBARTICKS, that xlim and xtick aren't exactly the same
 % as I am using IMAGEFDIR for the color bar - maybe time for a change
