@@ -18,7 +18,7 @@ function varargout=plotonchunk(xi,eta)
 % SEE ALSO: PLOTONCUBE, PLM2CUBE (notably, for demos using this)
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/26/2016
+% Last modified by fjsimons-at-alum.mit.edu, 07/06/2016
 
 for in=1:6
   xup=floor(in/2)*pi/2;
@@ -26,7 +26,7 @@ for in=1:6
   if ~isempty(eta{in})
     p(in)=plot(eta{in}+xup,xi{in}+yup,'.');
   else
-    if verLessThan('matlab', 'R2014b')
+    if verLessThan('matlab', '8.4')
       % Make a NaN handle
       p(in)=NaN;
     else
