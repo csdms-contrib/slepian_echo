@@ -26,16 +26,16 @@ defval('agu',0)
 % Truncation level as percentiles, passed on to LORISTOPO2D
 % For the moment only to D4
 defval('tperc',85);
-% For SPIE this was 
-defval('iface',1);
-% For GJI this was 3
-defval('iface',5);
+% For SPIE this was 1, for GJI 3
+defval('iface',3);
 
 clf
 if opt<2
   [ah,ha,H]=krijetem(subnum(2,3));
+  fig2print(gcf,'portrait')
 else
   [ah,ha,H]=krijetem(subnum(3,3));
+  fig2print(gcf,'tall')
 end
 
 if agu==1
@@ -147,6 +147,7 @@ set(ah(length(ah)-1),'xtick',tix4,...
 set(ah(length(ah)-0),'xtick',tix6,...
 		  'xticklabel',round(10*tix6)/10,'xgrid','on')
 
+
 if opt<2
   sr=0.785;
   shrink(ah([1 2 3]),sr,sr)
@@ -155,7 +156,6 @@ if opt<2
   shrink([gd2 gd4 gd6],sr,1.5)
   shrink(ah([4 5 6]),1,1.2)
   movev(ah([4 5 6]),.05)
-  fig2print(gcf,'portrait')
 else
   if agu~=1
     sr=1;
@@ -163,10 +163,16 @@ else
     shrink([gd2b gd4b gd6b],sr,1.5)
     shrink(ah(length(ah)-2:length(ah)),1,1.475)
     shrink(ah(length(ah)-2:length(ah)),1.1,1)
-    movev(ah([1 2 3]),-0.025)
-    movev([gd2 gd4 gd6],-0.025)
-    movev(ah(length(ah)-2:length(ah)),0.075)
-    fig2print(gcf,'tall')
+    if verLessThan('matlab', '8.4')
+      movev(ah([1 2 3]),-0.025)
+      movev([gd2 gd4 gd6],-0.025)
+      movev(ah(length(ah)-2:length(ah)),0.075)
+    else
+      movev(ah([1 2 3]),0.01)
+      movev([gd2 gd4 gd6],-0.025)
+      movev(ah(4:6),0.045)
+      movev(ah(length(ah)-2:length(ah)),0.075)
+    end
   elseif agu==1
     fig2print(gcf,'landscape')
   end
@@ -180,6 +186,7 @@ if opt==2
   movev(ah(7:9),0.01)
 end
 
+% Actually print the figure
 figdisp([],opt,[],0)
 
 if agu==1
