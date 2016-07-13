@@ -13,10 +13,11 @@ function loris2(N,L,colmap,meth,fs,opt)
 % opt      'SPIE2011' as published in doi: 10.1117/12.892285
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/23/2016
+% Reviewed by gyin-at-princeton.edu, 07/06/2016
+% Last modified by fjsimons-at-alum.mit.edu, 07/06/2016
 
 % Set the defaults
-defval('N',2) % 8 is now possible too
+defval('N',6) 
 defval('L',ceil(2^(N+1)))
 defval('colmap','sergeicol');
 defval('meth',1)
