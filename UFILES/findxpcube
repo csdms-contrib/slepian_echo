@@ -1,0 +1,40 @@
+#!/bin/csh
+#
+# Finds the spline interpolation coefficients for all the depths
+# required to do the wavelet-cubed-sphere. Saves them in an ASCII
+# filename with 21 coefficients with the depth as a filename. Later
+# on, collect them all in a Matlab binary variable named xpcube.mat 
+# for use by RTSSPLINES 
+
+set radii=( \
+	3481.400  3503.975  3526.550  3549.125  3571.700  3594.275  3616.850  3639.425 \
+	3662.000  3684.575  3707.150  3729.725  3752.300  3774.875  3797.450  3820.025 \
+	3842.600  3865.175  3887.750  3910.325  3932.900  3955.475  3978.050  4000.625 \
+	4023.200  4045.775  4068.350  4090.925  4113.500  4136.075  4158.650  4181.225 \
+	4203.800  4226.375  4248.950  4271.525  4294.100  4316.675  4339.250  4361.825 \
+	4384.400  4406.975  4429.550  4452.125  4474.700  4497.275  4519.850  4542.425 \
+	4565.000  4587.575  4610.150  4632.725  4655.300  4677.875  4700.450  4723.025 \
+	4745.600  4768.175  4790.750  4813.325  4835.900  4858.475  4881.050  4903.625 \
+	4926.200  4948.775  4971.350  4993.925  5016.500  5039.075  5061.650  5084.225 \
+	5106.800  5129.375  5151.950  5174.525  5197.100  5219.675  5242.250  5264.825 \
+	5287.400  5309.975  5332.550  5355.125  5377.700  5400.275  5422.850  5445.425 \
+	5468.000  5490.575  5513.150  5535.725  5558.300  5580.875  5603.450  5626.025 \
+	5648.600  5671.175  5693.750  5716.325  5738.900  5761.475  5784.050  5806.625 \
+	5829.200  5851.775  5874.350  5896.925  5919.500  5942.075  5964.650  5987.225 \
+	6009.800  6032.375  6054.950  6077.525  6100.100  6122.675  6145.250  6167.825 \
+	6190.400  6212.975  6235.550  6258.125  6280.700  6303.275  6325.850  6348.425 \
+	6371.000)
+
+foreach radius ($radii[*])
+	# Remember the @ formalism is only for integers and arithmetic is only integer
+	set depth = `echo $radii[$#radii]-$radius | bc`
+	echo "Calculating coefficients for depth of  $depth km"
+	# The first argument is a dummy in this context
+	./xpmap 3 $depth
+end	
+
+# Now remember that 0. and 22. are unallowed, so we just copy the 45 km depth there? Or shall we make it zero
+# Remember that for a good listing, let's call 0 0.0, the below should give us 129
+ll [0-9]*.*[0-9]* | wc
+
+rm ./out_depmax

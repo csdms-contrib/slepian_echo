@@ -1,0 +1,39 @@
+#!/bin/tcsh -f
+# Script to get the spline expansion coefficients for a given depth,
+# the result being written as 21 coefficients to a file with the same
+# name as the depth itself. Used in findxp* 
+#--------------------------------------------------------------------
+#-- EXAMPLE: xpmap [any number] 120
+#--------------------------------------------------------------------
+
+set maxv  = $1
+set depth = $2
+
+#------------------------------------------------
+#-- Models:
+
+set model     = s40_prelim.sph
+set modelname = S40_prelim
+
+#------------------------------------------------
+
+#-- DEPMAPHJ
+echo $model >  in_depmaphj_jr
+echo $depth >> in_depmaphj_jr
+# You need this function compiled and in your path
+depmaphj_jr <  in_depmaphj_jr > out_depmax
+
+set md =  $model:t:r
+set rawfl = `/bin/ls -1 $md.raw`
+
+# This used to be plmap
+xppl $rawfl $maxv $depth
+
+rm -f ./in_depmaphj_jr 
+rm -f ./in_raw2xyz
+rm -f ./map.xyz
+rm -f ./$model:r.raw
+rm -f ./map.{$depth}km.ps
+
+# Now work with what you get and put it in a like-named file
+awk '/dep/ {printf "%s ",$5}' out_depmax > $depth

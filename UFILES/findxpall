@@ -1,0 +1,22 @@
+#!/bin/csh
+#
+# Finds the spline interpolation coefficients for all the depths
+# allowed in the S?0RTS model. Saves them in an ASCII filename with 21
+# coefficients with the depth as a filename. Later on, collect them all
+# in a Matlab binary variable named xpall.mat for use by RTSSPLINES.
+
+set depth = 24
+
+while ($depth < 2899)
+  @ depth += 1
+  # Remember the @ formalism is only for integers and arithmetic is only integer
+  echo "Calculating coefficients for depth of  $depth km"
+  # The first argument is a dummy in this context
+  ./xpmap 3 $depth
+end	
+
+# Now remember that 0. and 22. are unallowed, so we just copy the 45 km depth there? Or shall we make it zero
+# Remember that for a good listing, let's call 0 0.0, the below should give us 129
+ll [0-9]*.*[0-9]* | wc
+
+rm -f ./out_depmax

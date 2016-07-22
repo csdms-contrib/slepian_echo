@@ -1,0 +1,25 @@
+#!/bin/tcsh -f
+
+#-- input 
+set rawfl = $1
+
+#-- spherical harmonics
+#-- (lmin=1: takes out spherical average)
+set lmin  = 0
+set lmax  = 40
+set isp   = 1
+
+set xmin   = -180
+
+#-- RAW2XYZ
+echo Turning the ".raw" file into "x-y-z" file
+echo $rawfl      >  in_raw2xyz
+echo map.xyz     >> in_raw2xyz
+echo $isp        >> in_raw2xyz
+echo 1.00        >> in_raw2xyz
+echo $lmin $lmax >> in_raw2xyz
+echo $xmin       >> in_raw2xyz
+echo 0           >> in_raw2xyz
+# You need this function compiled and in your path
+raw2xyz_jr        < in_raw2xyz
+
