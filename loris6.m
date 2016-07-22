@@ -8,7 +8,7 @@ function loris6(wav,xver)
 % wav    The chosen construction, 'D2', 'D4' or 'D6', or 'CDF4.2'
 % xver   1 Performs all sorts of checks [default: 0]
 %
-% Tested on 8.3.0.532 (R2014a) 
+% Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
 % Reviewed by gyin-at-princeton.edu, 07/22/2016
 % Last modified by fjsimons-at-alum.mit.edu, 07/22/2016
 

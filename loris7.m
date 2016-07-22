@@ -4,7 +4,9 @@ function loris7
 % This is showing the breakdown by scale and by panel of our seismic
 % models as obtained from the single-chunk breakdown by LORIS5 
 %
-% Last modified by fjsimons-at-alum.mit.edu, 02/17/2011
+% Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
+% Reviewed by gyin-at-princeton.edu, 07/22/2016
+% Last modified by fjsimons-at-alum.mit.edu, 07/22/2016
 
 defval('wav','D4')
 defval('N',7)
