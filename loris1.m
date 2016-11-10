@@ -16,7 +16,7 @@ function loris1(N,eo,lon,lat,sc,fax,opt)
 % Makes a cute plot of the cubed sphere in three-dimensional space.
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 06/23/2016
+% Last modified by fjsimons-at-alum.mit.edu, 11/10/2016
 
 % Set the defaults
 defval('N',4)
@@ -30,7 +30,7 @@ switch opt
  case 'SPIE2011'
   defval('lon',30)
   defval('lat',-5)
-  defva('fax',1);
+  defval('fax',1);
 end
 
 defval('actprint',0)
