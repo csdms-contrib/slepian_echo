@@ -33,11 +33,10 @@ function varargout=readJRmodel(in,rmav,degres,toplot)
 %
 % Last modified by fjsimons-at-alum.mit.edu, 11/10/2016
 
-defval('in',3)
-
 % Define default file names and directory locations
 defval('diro',fullfile(getenv('IFILES'),'EARTHMODELS','RITSEMA'))
-if ~isempty(in) && isstr(in)
+
+if exist('in','var') && ~isempty(in) && isstr(in)
   % First input was a model name; this is a hack for calcJRmodel
   mname=in;
   % Sad hack for calcJRmodel which was replaced by interpJRmodel
@@ -95,7 +94,6 @@ if nargin>0 && flag~=1
   
   % Prepare for output 
   varns={[dels dems plotcosi]};
-
 elseif nargin==0 || flag==1
   % if nothing else requested return all coefficients
   for in=1:size(cosi,3)
