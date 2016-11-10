@@ -31,7 +31,9 @@ function varargout=readJRmodel(in,rmav,degres,toplot)
 % [a,dels,dems]=readJRmodel; plotplm([dels dems a(:,:,3)],[],[],[],1);
 % kelicol % Note that this plots a single spline, which isn't yet a "depth"
 %
-% Last modified by fjsimons-at-alum.mit.edu, 07/15/2016
+% Last modified by fjsimons-at-alum.mit.edu, 11/10/2016
+
+defval('in',3)
 
 % Define default file names and directory locations
 defval('diro',fullfile(getenv('IFILES'),'EARTHMODELS','RITSEMA'))
@@ -140,4 +142,3 @@ end
 
 % Collect output
 varargout=varns(1:nargout);
-  

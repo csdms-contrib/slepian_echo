@@ -448,7 +448,6 @@ else
 		   sprintf('loris5_JR_%4.4i_%i_%i_%s_%i_%i.mat',...
 			   round(depkm),N,J,wav,precon(1),precon(2)));
   end
-  
   if exist(fname,'file')==2
     % Loading the wavelet transformed seismic models
     load(fname)
@@ -464,7 +463,6 @@ else
       disp('Reading RITSEMA model')
       % Load the model at the requested, faces rearranged and all
       v=plm2cube(interpJRmodel(depkm));
-      
     end
     % This should be on pixel centered, non-overlapping, completely covering,
     % registration with an even number of points. Right now we have this on

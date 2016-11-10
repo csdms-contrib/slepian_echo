@@ -63,4 +63,3 @@ end
 % Generate output
 varns={lmcosi};
 varargout=varns(1:nargout);
-
