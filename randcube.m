@@ -1,7 +1,7 @@
 function X=randcube(d1,d2,d3,fnX)
 % X=randcube(d1,d2,d3,fnX)
 % 
-% Creates a standard cubed-sphere full of rand's
+% Creates a standard cubed-sphere full of RAND numbers
 %
 % INPUT:
 %
@@ -16,7 +16,7 @@ function X=randcube(d1,d2,d3,fnX)
 %
 % CELLNAN, CUBEMATS, NANCUBE
 %
-% Last modified by fjsimons-at-alum.mit.edu, 02/18/2010
+% Last modified by fjsimons-at-alum.mit.edu, 07/30/2019
 
 defval('d1',128)
 defval('d2',128)
