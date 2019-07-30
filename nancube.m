@@ -1,7 +1,7 @@
 function varargout=nancube(d1,d2,d3,fnX)
 % [X,fnX]=nancube(d1,d2,d3,fnX)
 % 
-% Creates a standard cubed-sphere full of NaNs
+% Creates a standard cubed-sphere full of NAN entries
 %
 % INPUT:
 %
@@ -17,7 +17,7 @@ function varargout=nancube(d1,d2,d3,fnX)
 %
 % CELLNAN, CUBEMATS, RANDCUBE
 %
-% Last modified by fjsimons-at-alum.mit.edu, 04/21/2010
+% Last modified by fjsimons-at-alum.mit.edu, 07/30/2019
 
 defval('d1',128)
 defval('d2',128)
@@ -33,5 +33,3 @@ end
 % Output
 varns={X,fnX};
 varargout=varns(1:nargout);
-
-
