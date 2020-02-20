@@ -23,7 +23,7 @@ function f=angularD2WT(x,levels,tipe,mr)
 % SEE ALSO: PRECOND4, D4BOXCOF, D4BOXSTEP, D4BOXSTEPI
 % 
 % Inspired by Ignace Loris (igloris@vub.ac.be) on 26/06/2009
-% Last modified by fjsimons-at-alum.mit.edu, 11/03/2010
+% Last modified by fjsimons-at-alum.mit.edu, 11/05/2010
 
 if ~isstr(x)
   % Get the levels of the decomposition
