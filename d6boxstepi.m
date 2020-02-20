@@ -22,7 +22,7 @@ function x=d6boxstepi(f,level,dim,cofs)
 % SEE ALSO: D6BOXSTEP, D6BOX, D6BOXI, D6BOXCOF
 %
 % Inspired by Ignace Loris (igloris@vub.ac.be) on 22.06.2009
-% Last modified by fjsimons-at-alum.mit.edu, 08/24/2010
+% Last modified by fjsimons-at-alum.mit.edu, 08/25/2010
 
 % Figure out dimensions
 nall=size(f);
