@@ -6,7 +6,7 @@ function cofs=d6boxcof
 %
 % SEE ALSO: D6BOXSTEP, D6BOXSTEPI, PRECOND6
 %
-% Last modified by fjsimons-at-alum.mit.edu, 03/15/2010
+% Last modified by fjsimons-at-alum.mit.edu, 03/16/2010
 
 % disp('Obtaining coefficients')
 
