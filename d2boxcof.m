@@ -6,7 +6,7 @@ function cofs=d2boxcof
 %
 % SEE ALSO: D2BOXSTEP, D2BOXSTEPI
 %
-% Last modified by fjsimons-at-alum.mit.edu, 08/24/2010
+% Last modified by fjsimons-at-alum.mit.edu, 08/25/2010
 
 % Get the product filter coefficients
 [h0,f0]=wc('Daubechies',1);
