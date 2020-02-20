@@ -1,10 +1,9 @@
 function [h0,f0,P,U,Kp,Ku]=wc(tipe,nvm)
 % [h0,f0,P,U,Kp,Ku]=WC(tipe,nvm)
 %
-% Gets wavelet filter coefficients from my
-% personal data base. Gives the two factors
-% of the product filter. Use PRODCO to give full set.
-% Also gives the lifting operators.
+% Gets wavelet filter coefficients from my personal data base. Gives the two
+% factors of the product filter. Use PRODCO to give full set.  Also gives
+% the lifting operators.
 %
 % INPUT:
 %
@@ -27,7 +26,7 @@ function [h0,f0,P,U,Kp,Ku]=wc(tipe,nvm)
 %
 % From a database saved by MAKEWC.
 %
-% Last modified by fjsimons-at-alum.mit.edu, 11/03/2010
+% Last modified by fjsimons-at-alum.mit.edu, 11/04/2010
 
 defval('tipe','CDF')
 defval('nvm',[1 1])
