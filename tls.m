@@ -12,7 +12,7 @@ function P=tls(xdata,ydata)
 %
 % P              The polynomial expansion coefficients as from POLYFIT
 %
-% Last modified by fjsimons-at-alum.mit.edu, 11/24/2015
+% Last modified by fjsimons-at-alum.mit.edu, 11/25/2015
 
 % From a Wikipedia article on Total Least Squares... need better reference
 
