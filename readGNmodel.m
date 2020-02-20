@@ -21,7 +21,7 @@ function v=readGNmodel(dep,fname)
 % v=readGNmodel(361.200);
 % plotoncube(readGNmodel(609.525),'2D')
 %
-% Last modified by fjsimons-at-alum.mit.edu, 10/25/2010
+% Last modified by fjsimons-at-alum.mit.edu, 10/26/2010
 
 % Hardwired Earth radius, not ideal
 rearthkm=6371;
