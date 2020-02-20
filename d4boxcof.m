@@ -6,7 +6,7 @@ function cofs=d4boxcof
 %
 % SEE ALSO: D4BOXSTEP, D4BOXSTEPI, PRECOND4
 %
-% Last modified by fjsimons-at-alum.mit.edu, 03/15/2010
+% Last modified by fjsimons-at-alum.mit.edu, 03/16/2010
 
 % Get the product filter coefficients
 [h0,f0]=wc('Daubechies',2);
