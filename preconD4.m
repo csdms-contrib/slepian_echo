@@ -17,7 +17,7 @@ function x=preconD4(x,precon,tipe,cofs)
 %
 % x         The preconditioned output array
 %
-% Last modified by fjsimons-at-alum.mit.edu, 10/13/2010
+% Last modified by fjsimons-at-alum.mit.edu, 10/14/2010
 
 defval('xver',0)
 
