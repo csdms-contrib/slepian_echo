@@ -35,7 +35,7 @@ function f=angularD6WT(x,levels,precon,tipe,mr)
 % angularD6WT('demo1')
 %
 % Inspired by Ignace Loris (igloris@vub.ac.be) on 26/06/2009
-% Last modified by fjsimons-at-alum.mit.edu, 10/22/2010
+% Last modified by fjsimons-at-alum.mit.edu, 10/23/2010
 
 if ~isstr(x)
   % Get the levels of the decomposition
