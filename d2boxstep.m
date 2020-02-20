@@ -23,7 +23,7 @@ function varargout=d2boxstep(x,level,dim,cofs)
 % SEE ALSO: D2BOXSTEPI, D2BOXCOF
 %
 % Inspired by Ignace Loris (igloris@vub.ac.be) on 22.06.2009
-% Last modified by fjsimons-at-alum.mit.edu, 08/25/2010
+% Last modified by fjsimons-at-alum.mit.edu, 08/23/2010
 
 if ~isstr(x)
 
