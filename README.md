@@ -8,3 +8,5 @@ Supported by the National Science Foundation under grant <a href="https://www.ns
 
 ## Latest release
 [![DOI](https://zenodo.org/badge/6548/csdms-contrib/slepian_echo.svg)](https://zenodo.org/badge/latestdoi/6548/csdms-contrib/slepian_echo)
+
+[![View slepian_echo on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/71419-slepian_echo)
