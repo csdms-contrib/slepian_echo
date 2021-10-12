@@ -2,8 +2,8 @@ function varargout=boxcube(lons,lats,deps,nxi,neta)
 % BOXCUBE(lons,lats,deps,nxi,neta)
 %
 % Finds the coordinates, as a running index into the cubed-sphere, of a
-% volume bounded two lines of longitude and two lines of latitude and two
-% depths, or, alternatively, of a set of longitude, latitudes, and depths.
+% volume bounded by two lines of longitude and two lines of latitude and two
+% depths, or, alternatively, of a curve of longitude, latitudes, and depths.
 %
 % INPUT:
 %
@@ -28,7 +28,7 @@ function varargout=boxcube(lons,lats,deps,nxi,neta)
 % 
 % See also: SPHERE2CUBE
 %
-% Last modified by fjsimons-at-alum.mit.edu, 01/27/2011
+% Last modified by fjsimons-at-alum.mit.edu, 10/12/2021
 
 % Simple defaults
 defval('lons',[100:110])
