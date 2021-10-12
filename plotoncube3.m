@@ -1,7 +1,7 @@
 function plotoncube3(vname,tipe,kind,vscale,colmap,phil)
 % PLOTONCUBE3(vname,tipe,kind,vscale,colmap,phil)
 %
-% Plots ALL DEPTHS of gridded whole-cubed-sphere data. 
+% Plots ALL DEPTHS of gridded whole-cubed-sphere data from a file.
 % A wrapper for PLOTONCUBE2.
 %
 % INPUT:
