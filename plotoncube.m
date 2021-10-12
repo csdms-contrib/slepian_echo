@@ -3,7 +3,7 @@ function varargout=...
 % [h,pg,txtywk,pgw]=...
 %   PLOTONCUBE(v,tipe,kind,x,y,z,vscale,colmap,phil,setnan,wgrid)
 %
-% Plots SINGLE-DEPTH cubed-sphere data.
+% Plots SINGLE-DEPTH cubed-sphere gridded data.
 %
 % What needs to be checked is that we used to have an odd number of
 % points, redundant at the edges, and now we have an even number of
