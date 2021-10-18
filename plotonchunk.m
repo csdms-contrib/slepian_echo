@@ -18,7 +18,7 @@ function varargout=plotonchunk(xi,eta)
 % SEE ALSO: PLOTONCUBE, PLM2CUBE (notably, for demos using this)
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 07/06/2016
+% Last modified by fjsimons-at-alum.mit.edu, 10/21/2021
 
 for in=1:6
   xup=floor(in/2)*pi/2;
@@ -42,7 +42,7 @@ end
 
 hold off
 
-set(p(~isnanx(p)),'MarkerS',2)
+set(p(~isnanx(p)),'MarkerSize',2)
 axis off
 %set(gcf,'color','w')
 
