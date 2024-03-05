@@ -129,4 +129,3 @@ switch opt
    set(cat(1,ty{:}),'color','k')
    set([ttx tty],'color','k')
 end
-
