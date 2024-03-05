@@ -12,15 +12,16 @@ function loris1(N,eo,lon,lat,sc,fax,opt)
 % fax      Axis scaling [defaulted]
 % opt      'GJI2011' as published in doi: 10.1111/j.1365-246X.2011.05190.x
 %          'SPIE2011' as published in doi: 10.1117/12.892285
+%          'POLYNESIA' centerd on Polynesia
 %
 % Makes a cute plot of the cubed sphere in three-dimensional space.
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 11/10/2016
+% Last modified by fjsimons-at-alum.mit.edu, 10/15/2021
 
 % Set the defaults
 defval('N',4)
-defval('opt','GJI2011')
+defval('opt','POLYNESIA')
 
 switch opt
  case 'GJI2011'
@@ -31,19 +32,32 @@ switch opt
   defval('lon',30)
   defval('lat',-5)
   defval('fax',1);
+ case 'POLYNESIA'
+  defval('lon',210.427)
+  defval('lat',-17.559)
+  defval('fax',1);
+ case 'GUYOT'
+  defval('lon',-74.6548)
+  defval('lat',40.3458)
+  defval('fax',1);
 end
 
-defval('actprint',0)
+defval('actprint',2)
 defval('eo',0)
 defval('sc',0)
 
+% Cubed-sphere defaults
+defval('alfa',0.2);
+defval('bita',0.9);
+defval('gama',1);
+
 % Create the cubed sphere
 Nor=N;
-[x,y,z,J,N]=cube2sphere(N,[],[],[],eo,0);
+[x,y,z,J,N]=cube2sphere(N,alfa,bita,gama,eo,0);
 
 if sc==1
   % Create the superchunk sphere and reassign N
-  [x2,y2,z2,J,N2]=cube2sphere(Nor*2,[],[],[],eo,1);
+  [x2,y2,z2,J,N2]=cube2sphere(Nor*2,alfa,bita,gama,eo,1);
 end
 
 clf
@@ -51,7 +65,7 @@ clf
 [xv,yv,zv]=sph2cart(lon*pi/180,lat*pi/180,1);
 
 % Plot the visible continents, which depends on the view angle
-[a,h,XYZ]=plotcont([0 90],[360 -90],3); delete(h); 
+[a,h,XYZ]=plotcont([0 90],[360 -90],3); delete(h);
 % Inner product selectivity
 yes=[xv yv zv]*XYZ'>0; XYZ=XYZ(yes,1:3);
 % This protection from jumps is straight from PLOTCONT
@@ -69,7 +83,7 @@ hold on
 % pm=mesh(x(:,:,1),y(:,:,1),z(:,:,1),ones(N,N),'edgecolor','k');
 if sc==0
   % Figure out in what panel lies the center view point
-  [~,~,mf]=sphere2cube(lon,lat);
+  [~,~,mf]=sphere2cube(lon,lat,alfa,bita,gama);
   horz=[x(:,:,mf)  y(:,:,mf)  z(:,:,mf) ];
   vert=[x(:,:,mf)' y(:,:,mf)' z(:,:,mf)'];
   pm=plot3(horz(:,1:N),horz(:,N+1:2*N),horz(:,2*N+1:3*N),'k');
@@ -157,8 +171,4 @@ delete(pnp)
 hold off
 
 % Print it out
-figna=figdisp([],sc,[],actprint);
-if actprint==1
-  system(sprintf('epstopdf %s.eps',figna));
-end
-
+figna=figdisp([],sprintf('%s_%i',opt,sc),[],actprint);
