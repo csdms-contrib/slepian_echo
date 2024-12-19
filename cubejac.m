@@ -9,7 +9,8 @@ function [J,coordd,dxi,deta,XI,ETA]=cubejac(neta,nxi,sc,np)
 %
 % nxi,neta     Number of elements in the xi,eta direction
 % sc           0 regular cubed sphere [default]
-%              1 superchunk cubed sphere
+%              1 superchunk cubed sphere, OR:
+%              [rx re] half opening angles for xi and eta [radians]
 % np           1 Grid node registration [default]
 %              2 Pixel center registration [not ready yet]
 %
@@ -24,7 +25,7 @@ function [J,coordd,dxi,deta,XI,ETA]=cubejac(neta,nxi,sc,np)
 %
 % CUBE2SPHERE, ANGULARPART513TO128
 %
-% Last modified by fjsimons-at-alum.mit.edu, 01/20/2011
+% Last modified by fjsimons-at-alum.mit.edu, 12/19/2024
 
 % First make grid vectors of the angular part
 defval('neta',2^6+1)
@@ -34,15 +35,23 @@ defval('np',1)
 
 % First make grid vectors on the nodes
 if sc==0
-  edgy=[-pi/4 pi/4]; 
+    % Standard 90-degree square chunk
+    [edgx,edgy]=deal([-pi/4 pi/4]);
 elseif sc==1
-  edgy=[-3*pi/8 3*pi/8]; 
+    % Novel, bigger square chunk
+    [edgx,edgy]=deal([-3*pi/8 3*pi/8]);
+else
+    % Completely flexible chunk
+    edgx=[-sc(1) sc(1)];
+    edgy=[-sc(2) sc(2)];
 end
-  
+
+% Make the linear vectors
+rngx=edgx(2)-edgx(1);
 rngy=edgy(2)-edgy(1);
-xi =linspace(edgy(1),edgy(2),nxi);
+xi =linspace(edgx(1),edgx(2),nxi);
 eta=linspace(edgy(1),edgy(2),neta);
-dxi=rngy/(nxi-1);
+dxi=rngx/(nxi-1);
 deta=rngy/(neta-1);
 
 % Then make the actual grid
