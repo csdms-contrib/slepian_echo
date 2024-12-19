@@ -1,5 +1,7 @@
-function loris1(N,eo,lon,lat,sc,fax,opt)
-% LORIS1(N,eo,lon,lat,sc,fax,opt)
+function varargout=loris1(N,eo,lon,lat,sc,fax,opt,ostat,omap,L)
+% pstat=LORIS1(N,eo,lon,lat,sc,fax,opt,ostat,omap,L)
+%
+% Makes a cute plot of the cubed sphere in three-dimensional space.
 %
 % INPUT:
 %
@@ -10,39 +12,80 @@ function loris1(N,eo,lon,lat,sc,fax,opt)
 % sc       0 regular cubed sphere [default]
 %          1 superchunk cubed sphere
 % fax      Axis scaling [defaulted]
-% opt      'GJI2011' as published in doi: 10.1111/j.1365-246X.2011.05190.x
+% opt      Sets lon,lat view axis input if that had been left empty, to
+%          'GJI2011' as published in doi: 10.1111/j.1365-246X.2011.05190.x
 %          'SPIE2011' as published in doi: 10.1117/12.892285
-%          'POLYNESIA' centerd on Polynesia
+%          'POLYNESIA' centered on Polynesia
+%          'Zweeloo' centered on Jeroen Tromp's hometown
+%          'lucia' to work on WaveWatch type things
+% ostat    Some [lon,lat] coordinates that will be plotted as points
+% omap     A (nearly) global field you may want rendered as well
+%          omap.lat a Nx1 vector of latitudes [degrees]
+%          omap.lon a Mx1 vector of longitudes [degrees]
+%          omap.pv  a MxN matrix of values [ocean noise or whatever]
+% L        a scalar with maximum spherical harmonic degree
 %
-% Makes a cute plot of the cubed sphere in three-dimensional space.
+% OUTPUT:
+%
+% pstat    The handles to the plotted OSTAT points
+%
+% EXAMPLE:
+%
+% load ~/POSTDOCS/ThomasLee/OCEAN_WAVE_MODEL/20100101_9s.mat
+% loris1(5,[],[],[],0,[],'lucia',omap,[],[]);
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
-% Last modified by fjsimons-at-alum.mit.edu, 10/15/2021
+% Last modified by fjsimons-at-alum.mit.edu, 12/19/2024
 
 % Set the defaults
 defval('N',4)
-defval('opt','POLYNESIA')
+defval('opt','Zweeloo')
+defval('ostat',[])
 
 switch opt
  case 'GJI2011'
   defval('lon',-40)
   defval('lat',65)
-  defval('fax',0.8);
+  defval('fax',0.8)
  case 'SPIE2011'
   defval('lon',30)
   defval('lat',-5)
-  defval('fax',1);
+  defval('fax',1)
  case 'POLYNESIA'
   defval('lon',210.427)
   defval('lat',-17.559)
-  defval('fax',1);
+  defval('fax',1)
  case 'GUYOT'
   defval('lon',-74.6548)
   defval('lat',40.3458)
-  defval('fax',1);
+  defval('fax',1)
+ case 'Zweeloo'
+  defval('lon',6.733)
+  defval('lat',52.8)
+  defval('fax',1)
+  % Set the cubed sphere to something good
+  alfa=0.3;
+  bita=0.5;
+  gama=2.6;
+ case 'lucia'
+  defval('lon',332)
+  defval('lat',15)
+  defval('fax',1)
+  % Set the cubed sphere to something good
+  %  alfa=[-30]*pi/180;
+  % To a desired latitude (remember original reference is at equator, i.e. not
+  % as in PLM2ROT)
+  bita=-pi*(lat-90)/180;
+  % To a desired longitude
+  gama=pi*(180-lon)/180;
+  % Plot more stations, from ds.iris.edu
+  TAM= [ 5.5284 22.7915];
+  PAB= [-4.3499 39.5446];
+  BBSR=[-64.696 32.3713];
+  defval('ostat',[TAM; PAB; BBSR])
 end
 
-defval('actprint',2)
+defval('actprint',0)
 defval('eo',0)
 defval('sc',0)
 
@@ -64,8 +107,29 @@ clf
 % Set view angles ahead of time as an explicit longitude and latitude
 [xv,yv,zv]=sph2cart(lon*pi/180,lat*pi/180,1);
 
+if ~isempty(omap)
+    % Maybe also plot some actual global field
+    [LON,LAT]=meshgrid(omap.lon,omap.lat);
+    % To be seen
+    omap.pv(isnan(omap.pv))=min(min(omap.pv));
+    omap.pv=[omap.pv]';
+    % Must treat like irregular spacing
+    lmcosi=xyz2plm(omap.pv(:),L,[],LAT(:),LON(:));
+    % Verify if you want
+    % plotplm(lmcosi1,[],[],4)
+    % The cubed sphere expansion
+    v=plm2cube(lmcosi,log(N)/log(2),alfa,bita,gama);
+    plotoncube(v,'3D',1,x,y,z)
+    axis image
+end
+
+if ~isempty(omap); hold on; end
+
 % Plot the visible continents, which depends on the view angle
 [a,h,XYZ]=plotcont([0 90],[360 -90],3); delete(h);
+
+if ~isempty(omap); hold on; end
+
 % Inner product selectivity
 yes=[xv yv zv]*XYZ'>0; XYZ=XYZ(yes,1:3);
 % This protection from jumps is straight from PLOTCONT
@@ -119,6 +183,19 @@ if sc==1
   end
 end
 
+if ~isempty(ostat)
+    % Do stations individually
+    [xs,ys,zs]=sph2cart(ostat(:,1)*pi/180,ostat(:,2)*pi/180,1);
+    for index=1:size(ostat,1)
+        pstat(index)=plot3(xs(index),ys(index),zs(index),'o');
+    end
+    set(pstat,'MarkerFaceColor','k','MarkerEdgeColor','k')
+    t=title(sprintf('lon %g lat %g\n%s %g %s %g %s %g',lon,lat,...
+                  '\alpha',alfa*180/pi,...
+                  '\beta',bita*180/pi,...
+                    '\gamma',gama*180/pi));
+end
+
 % Now set (and verify the syntax) of the view 
 view([xv,yv,zv]); [AZ,EL]=view;
 disp(sprintf('Azimuth: %i ; Elevation: %i',round(AZ),round(EL)))
@@ -131,6 +208,10 @@ peq=plot3(xyze(:,1),xyze(:,2),xyze(:,3),'k');
 % Cosmetics
 % Change all of their colors
 set(pc,'Color',grey,'LineW',1)
+if ~isempty(omap)
+    set(pc,'Color','w','LineWidth',2)
+    caxis([-3 2])
+end
 set(cat(1,p{:}),'Color','k','LineW',1)
 set(cat(1,u{:}),'Color','k','LineW',1)
 if sc==1
@@ -144,6 +225,12 @@ end
 if sc==0
   set(pm,'Color','k','LineW',0.5)
   set(um,'Color','k','LineW',0.5)
+  if ~isempty(omap)
+      set(um(1),'LineWidth',2);
+      set(um(end),'LineWidth',2);
+      set(pm(1),'LineWidth',2);
+      set(pm(end),'LineWidth',2);
+  end
 end
 set(peq,'Color','k','LineW',1)
 
@@ -171,4 +258,5 @@ delete(pnp)
 hold off
 
 % Print it out
-figna=figdisp([],sprintf('%s_%i',opt,sc),[],actprint);
+figna=figdisp([],sprintf('%s_%i',opt,sc),'-painters',actprint);
+
