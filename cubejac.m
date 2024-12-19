@@ -1,5 +1,5 @@
-function [J,coordd,dxi,deta]=cubejac(neta,nxi,sc,np)
-% [J,coordd,dxi,deta]=cubejac(neta,nxi,sc,np)
+function [J,coordd,dxi,deta,XI,ETA]=cubejac(neta,nxi,sc,np)
+% [J,coordd,dxi,deta,XI,ETA]=cubejac(neta,nxi,sc,np)
 % 
 % Calculates the Jacobian and the coordinates of the grid nodes, not the
 % pixel centers, of a single face of a cubed sphere a la Ronchi et al.,
@@ -18,6 +18,7 @@ function [J,coordd,dxi,deta]=cubejac(neta,nxi,sc,np)
 % J            The Jacobian of this transformation
 % coordd       The Cartesian coordinates of a single face
 % dxi,deta     The angular spacings
+% XI,ETA       The cubed-sphere coordinates after MESHGRID
 %
 % SEE ALSO:
 %
