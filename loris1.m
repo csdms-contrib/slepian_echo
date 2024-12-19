@@ -10,7 +10,8 @@ function varargout=loris1(N,eo,lon,lat,sc,fax,opt,ostat,omap,L)
 %          1 odd number of points
 % lon,lat  The location of the viewing platform [defaulted]
 % sc       0 regular cubed sphere [default]
-%          1 superchunk cubed sphere
+%          1 superchunk cubed sphere, OR:
+%          [rx re] half opening angles for xi and eta [radians]
 % fax      Axis scaling [defaulted]
 % opt      Sets lon,lat view axis input if that had been left empty, to
 %          'GJI2011' as published in doi: 10.1111/j.1365-246X.2011.05190.x
@@ -31,8 +32,8 @@ function varargout=loris1(N,eo,lon,lat,sc,fax,opt,ostat,omap,L)
 %
 % EXAMPLE:
 %
-% load ~/POSTDOCS/ThomasLee/OCEAN_WAVE_MODEL/20100101_9s.mat
-% loris1(5,[],[],[],0,[],'lucia',omap,[],[]);
+% load ~/POSTDOCS/ThomasLee/OCEAN_WAVE_MODEL/2010001_9s.mat
+% loris1(5,[],[],[],0,[],'lucia',[],omap,24);
 %
 % Tested on 8.3.0.532 (R2014a) and 9.0.0.341360 (R2016a)
 % Last modified by fjsimons-at-alum.mit.edu, 12/19/2024
@@ -85,7 +86,7 @@ switch opt
   defval('ostat',[TAM; PAB; BBSR])
 end
 
-defval('actprint',0)
+defval('actprint',2)
 defval('eo',0)
 defval('sc',0)
 
@@ -94,13 +95,13 @@ defval('alfa',0.2);
 defval('bita',0.9);
 defval('gama',1);
 
-% Create the cubed sphere
+% Create the regular cubed sphere
 Nor=N;
-[x,y,z,J,N]=cube2sphere(N,alfa,bita,gama,eo,0);
+[x,y,z,J,N]=cube2sphere(N,alfa,bita,gama,eo,sc);
 
-if sc==1
+if prod(sc==1) || length(sc)==2
   % Create the superchunk sphere and reassign N
-  [x2,y2,z2,J,N2]=cube2sphere(Nor*2,alfa,bita,gama,eo,1);
+  [x2,y2,z2,J,N2]=cube2sphere(Nor*2,alfa,bita,gama,eo,sc);
 end
 
 clf
@@ -145,7 +146,7 @@ hold on
 % Plot a single "main" face, all visible
 % Don't do mesh as this is not see-through
 % pm=mesh(x(:,:,1),y(:,:,1),z(:,:,1),ones(N,N),'edgecolor','k');
-if sc==0
+if prod(sc==0)
   % Figure out in what panel lies the center view point
   [~,~,mf]=sphere2cube(lon,lat,alfa,bita,gama);
   horz=[x(:,:,mf)  y(:,:,mf)  z(:,:,mf) ];
@@ -167,7 +168,8 @@ for ind=1:6
   u{ind}=plot3(vert(:,1:2),vert(:,3:4),vert(:,5:6),'k');
 end
 
-if sc==1
+if prod(sc==1) || length(sc)==2
+    keyboard
   % Now hold on and plot the superchunk ribs also
   x=x2; y=y2; z=z2; N=N2;
   for ind=1:6
@@ -209,12 +211,12 @@ peq=plot3(xyze(:,1),xyze(:,2),xyze(:,3),'k');
 % Change all of their colors
 set(pc,'Color',grey,'LineW',1)
 if ~isempty(omap)
-    set(pc,'Color','w','LineWidth',2)
+    set(pc,'Color','w','LineWidth',1)
     caxis([-3 2])
 end
 set(cat(1,p{:}),'Color','k','LineW',1)
 set(cat(1,u{:}),'Color','k','LineW',1)
-if sc==1
+if prod(sc==1) || length(sc)==2
   set(cat(1,p2{:}),'Color','b','LineW',0.5)
   set(cat(1,u2{:}),'Color','b','LineW',0.5)
   % Save money for SPIE
@@ -222,7 +224,7 @@ if sc==1
   set(cat(1,u2{:}),'Color',grey,'LineW',0.5,'LineS','-')
 end
 % set(pm,'EdgeColor','k','LineW',0.5)
-if sc==0
+if prod(sc==0)
   set(pm,'Color','k','LineW',0.5)
   set(um,'Color','k','LineW',0.5)
   if ~isempty(omap)
@@ -258,5 +260,6 @@ delete(pnp)
 hold off
 
 % Print it out
+% set(gcf,'Inverthardcopy','off')
+% print('-depsc','-r900','/u/fjsimons/EPS/loris1_lucia_0')
 figna=figdisp([],sprintf('%s_%i',opt,sc),'-painters',actprint);
-
