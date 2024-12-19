@@ -17,7 +17,7 @@ function [rottot,mats,legs]=cubemats(alfa,bita,gama)
 % mats      The 'facial' rotation matrices
 % legs      Legends for a plot, should you want them
 % 
-% Last modified by fjsimons-at-alum.mit.edu, 08/19/2009
+% Last modified by fjsimons-at-alum.mit.edu, 08/20/2009
 
 defval('alfa',0.2089-0.175);
 defval('bita',0.9205+0.25);
